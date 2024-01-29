@@ -1,0 +1,49 @@
+// Абстрактний клас Animal
+contract Animal {
+    function eat() public virtual;
+    function speak() public virtual returns (string memory);
+}
+
+// Клас Herbivore, який наслідується від Animal
+contract Herbivore is Animal {
+    function eat() public override {
+        // Логіка для їжі тільки рослин
+    }
+}
+
+// Клас Cow, який наслідується від Animal та Herbivore
+contract Cow is Animal, Herbivore {
+    function speak() public override returns (string memory) {
+        return "Mooo";
+    }
+}
+
+// Клас Horse, який наслідується від Animal та Herbivore
+contract Horse is Animal, Herbivore {
+    function speak() public override returns (string memory) {
+        return "Igogo";
+    }
+}
+
+// Клас Wolf, який наслідується від Animal
+contract Wolf is Animal {
+    function eat() public override {
+        // Логіка для їжі тільки м'яса
+    }
+
+    function speak() public override returns (string memory) {
+        return "Awoo";
+    }
+}
+
+// Клас Dog, який наслідується від Animal
+contract Dog is Animal {
+    function eat(string memory food) public override {
+        // Логіка для їжі м'яса та рослин, але не шоколаду
+        require(keccak256(abi.encodePacked(food)) != keccak256(abi.encodePacked("chocolate")), "Chocolate is harmful!");
+    }
+
+    function speak() public override returns (string memory) {
+        return "Woof";
+    }
+}
